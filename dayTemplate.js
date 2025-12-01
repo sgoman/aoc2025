@@ -1,5 +1,7 @@
 'use strict'
 
+// const { fourWayDeltas } = require('./utils.js')
+
 const parseInput = input => {
     return input.split('\n')
 }

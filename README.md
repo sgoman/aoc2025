@@ -39,4 +39,4 @@ Example for the second day of 2024:
 The challenges
 --------------
 
-1. **[Day 1: What does Eric come up with this year?](day01.js)** Can't wait to find out!
+1. **[Day 1: Secret Entrance](day01.js)** Turn the dial on a safe and count how many times it lands on or crosses 0
