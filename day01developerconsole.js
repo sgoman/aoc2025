@@ -3,7 +3,7 @@
 // Just paste this code into the developer console on https://adventofcode.com/2025/day/1/input (try F12 or CTRL+I in your browser)
 // The two numbers are the results for the first and second part for your personal input
 
-onsole.log(
+console.log(
     document.body.innerText
     .split('\n')
     .map(l => [(l[0] == 'R') * 2 - 1, ~~l.slice(1)])
