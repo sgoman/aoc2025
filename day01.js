@@ -6,9 +6,17 @@ const parseInput = input => input.split('\n').map(l => [l[0], Number(l.slice(1))
 
 const solve = (isPart2, input) => {
     let pos = 50, zeroes = 0
-    for (const [dir, val] of input) {
-        pos = (dir == 'L') ? (pos + 1000 - val) % 100 : (pos + val) % 100
-        zeroes += pos == 0
+    for (let [dir, val] of input) {
+        if (isPart2) {
+            while(val--) {
+                pos += (dir == 'L') ? -1 : 1
+                pos = (pos + 100) % 100
+                zeroes += pos == 0
+            }
+        } else {
+            pos = (dir == 'L') ? (pos + 1000 - val) % 100 : (pos + val) % 100
+            zeroes += pos == 0
+        }
     }
     return zeroes
 }
