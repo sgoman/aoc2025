@@ -1,29 +1,16 @@
 'use strict'
 
-// const { fourWayDeltas } = require('./utils.js')
+const parseInput = input => input.split(',').map(r => r.split('-').map(Number))
 
-const parseInput = input => input.split('\n').map(l => l.split(',').map(r => r.split('-').map(Number)))[0]
+const solve = (part, input) => parseInput(input)
+    .reduce((total, [start, end]) => {
+        for (let i = start; i <= end; i++)
+            total += [/^(\d+)\1$/, /^(\d+)\1+$/][part].test(i) * i
+        return total
+    }, 0)
 
-const solve = (isPart2, input) => {
-    let total = 0
-    for (const [start, end] of input) {
-        for (let i = start; i <= end; i++) {
-            if (isPart2) {
-                if (/^(\d+)\1+$/.test(i)) total += i
-            } else {
-                if (/^(\d+)\1$/.test(i)) total += i
-            }
-        }
-    }
-    return total
-}
+const part1 = input => solve(0, input)
 
-const part1 = input => {
-    return solve(false, parseInput(input))
-}
-
-const part2 = input => {
-    return solve(true, parseInput(input))
-}
+const part2 = input => solve(1, input)
 
 module.exports = { part1, part2 }
