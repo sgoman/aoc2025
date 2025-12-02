@@ -8,7 +8,11 @@ const solve = (isPart2, input) => {
     let total = 0
     for (const [start, end] of input) {
         for (let i = start; i <= end; i++) {
-            if (/^(\d+)\1$/.test(i)) total += i
+            if (isPart2) {
+                if (/^(\d+)\1+$/.test(i)) total += i
+            } else {
+                if (/^(\d+)\1$/.test(i)) total += i
+            }
         }
     }
     return total
