@@ -39,4 +39,5 @@ Example for the second day of 2024:
 The challenges
 --------------
 
-1. **[Day 1: Secret Entrance](day01.js)** Turn the dial on a safe and count how many times it lands on or crosses 0
+1. **[Day 1: Secret Entrance](day01.js)** Turn the dial on a safe and count how many times it lands on or crosses 0. Bonus: [Solution for flow control challenge](day01developerconsole.js)
+2. **[Day 2: Gift Shop](day02.js)** Applying a simple regex to each number of every range. Bonus: [Solution for flow control challenge](day02developerconsole.js)
