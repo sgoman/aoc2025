@@ -4,14 +4,18 @@ const { combineConditionally } = require('./utils.js')
 
 const pairs = tmp => tmp.length == 2
 const tooShort = tmp => tmp.length < 2
+const dozen = tmp => tmp.length == 12
+const notADozen = tmp => tmp.length < 12
 
 const parseInput = input => input.split('\n').map(l => l.split(''))
 
 const solve = (isPart2, input) => {
 	let total = 0
 	for (const nums of input) {
-		const combos = combineConditionally(nums, pairs, tooShort)
-		total += Math.max(...combos.map(c => ~~(c.join(''))))
+		const combos = isPart2
+			? combineConditionally(nums, dozen, notADozen)
+			: combineConditionally(nums, pairs, tooShort)
+		total += Math.max(...combos.map(c => Number(c.join(''))))
 	}
     return total
 }
