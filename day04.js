@@ -1,18 +1,34 @@
 'use strict'
 
-const { eightWayDeltas, gridCells, getSurrounding } = require('./utils.js')
+const { eightWayDeltas, gridCells, getSurrounding, gridToString } = require('./utils.js')
 
 const parseInput = input => input.trim().split('\n').map(l => l.split(''))
 
-const solve = (isPart2, input) => gridCells(input)
-	.filter(f => f.value == '@')
-//.forEach(({row, col, value}) => console.log(getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length))
-	.reduce((acc, {row, col, value}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0)
-
-const part1 = input => solve(false, parseInput(input))
+const part1 = input => {
+	input = parseInput(input)
+	return gridCells(input)
+		.filter(f => f.value == '@')
+		.reduce((acc, {row, col, value}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0)
+}
 
 const part2 = input => {
-    return solve(true, parseInput(input))
+	input = parseInput(input)
+	let total = 0, papers = gridCells(input).filter(f => f.value == '@'), grabbed
+	do {
+		grabbed = false
+		for (const {row, col, value} of papers) {
+			const touching = getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@')
+			if (touching.length < 4) {
+				total++
+				grabbed = true
+				input[row][col] = '.'
+			}
+		}
+		console.log(gridToString(input))
+		papers = gridCells(input).filter(f => f.value == '@')
+	} while(papers.length && grabbed)
+
+	return total
 }
 
 module.exports = { part1, part2 }
