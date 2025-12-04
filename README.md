@@ -39,6 +39,7 @@ Example for the second day of 2024:
 The challenges
 --------------
 
-1. **[Day 1: Secret Entrance](day01.js)** Turn the dial on a safe and count how many times it lands on or crosses 0. Bonus: [Solution for flow control challenge](day01developerconsole.js)
-2. **[Day 2: Gift Shop](day02.js)** Applying a simple regex to each number of every range. Bonus: [Solution for flow control challenge](day02developerconsole.js)
-3. **[Day 3: Lobby](day03.js)** Construct the highest number of the digits provided in order. Bonus: [Solution for flow control challenge](day03developerconsole.js)
+1. **[Day 1: Secret Entrance](day01.js)** Turn the dial on a safe and count how many times it lands on or crosses 0. Bonus: [Solution for flowless challenge](day01developerconsole.js)
+2. **[Day 2: Gift Shop](day02.js)** Applying a simple regex to each number of every range. Bonus: [Solution for flowless challenge](day02developerconsole.js)
+3. **[Day 3: Lobby](day03.js)** Construct the highest number of the digits provided in order. Bonus: [Solution for flowless challenge](day03developerconsole.js)
+4. **[Day 4: Printing Department](day04.js)** Cellular Automaton, grids are back in business! Bonus: [Solution for flowless challenge](day04developerconsole.js)
