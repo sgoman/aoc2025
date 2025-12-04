@@ -15,26 +15,23 @@ const getSurroundingGridCoords = (grid, row, col, deltas) =>
 const getSurrounding = (grid, row, col, deltas) =>
 	getSurroundingGridCoords(grid, row, col, deltas).reduce((tiles, [r, c]) => [...tiles, { tile: grid[r][c], row: r, col: c }], [])
 
-const solve = (grid, total) => {
+const solve = (grid, total, isPart1) => {
 	let changed = gridCells(grid)
 		.filter(f => f.value == '@')
 		.reduce((acc, {row, col}) => {
-			const removable = ~~(getSurrounding(grid, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4)
-			grid[row][col] = '@.'[removable]
+			const removable = +(getSurrounding(grid, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4)
+			grid[row][col] = '@.'[removable * !isPart1]
 			return acc + removable
 		}, 0)
-	return ((changed == 0) * total) || solve(grid, total + changed)
+	return ((changed == 0) * total) || (isPart1 * changed) || solve(grid, total + changed, isPart1)
 }
 
 const input = document.body.innerText.trim().split('\n').map(l => l.split(''))
 
 console.time('Advent of Code 2025 day 4 both parts')
 console.log([
-	gridCells(input)
-	.filter(f => f.value == '@')
-	.reduce((acc, {row, col}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0),
-
-	solve(input, 0)
+	solve(input.map(r => r.map(c => c)), 0, 1),
+	solve(input.map(r => r.map(c => c)), 0, 0)
 ])
 console.timeEnd('Advent of Code 2025 day 4 both parts')
 
