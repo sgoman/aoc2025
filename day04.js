@@ -19,7 +19,7 @@ const part1 = input => {
 	input = parseInput(input)
 	return gridCells(input)
 		.filter(f => f.value == '@')
-		.reduce((acc, {row, col, value}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0)
+		.reduce((acc, {row, col}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0)
 }
 
 const part2 = input => solve(parseInput(input), 0)

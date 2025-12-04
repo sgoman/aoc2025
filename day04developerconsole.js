@@ -10,10 +10,10 @@ const gridCells = grid => grid.reduce((cells, line, row) => [...cells, ...line.m
 const validCoordForGrid = (row, col, grid) => row >= 0 && row < grid.length && col >= 0 && col < grid[row].length
 
 const getSurroundingGridCoords = (grid, row, col, deltas) =>
-    deltas.reduce((coords, [r, c]) => validCoordForGrid(row + r, col + c, grid) ? [...coords, [row + r, col + c]] : coords, [])
+	deltas.flatMap(([r, c]) => Array(+(validCoordForGrid(row + r, col + c, grid))).fill([row + r, col + c]));
 
 const getSurrounding = (grid, row, col, deltas) =>
-    getSurroundingGridCoords(grid, row, col, deltas).reduce((tiles, [r, c]) => [...tiles, { tile: grid[r][c], row: r, col: c }], [])
+	getSurroundingGridCoords(grid, row, col, deltas).reduce((tiles, [r, c]) => [...tiles, { tile: grid[r][c], row: r, col: c }], [])
 
 const solve = (grid, total) => {
 	let changed = gridCells(grid)
@@ -32,7 +32,7 @@ console.time('Advent of Code 2025 day 4 both parts')
 console.log([
 	gridCells(input)
 	.filter(f => f.value == '@')
-	.reduce((acc, {row, col, value}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0),
+	.reduce((acc, {row, col}) => acc + (getSurrounding(input, row, col, eightWayDeltas).filter(f => f.tile == '@').length < 4), 0),
 
 	solve(input, 0)
 ])

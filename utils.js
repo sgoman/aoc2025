@@ -16,7 +16,7 @@ const validCoordForGrid = (row, col, grid) => row >= 0 && row < grid.length && c
 
 // get grid coords from a position and list of deltas
 const getSurroundingGridCoords = (grid, row, col, deltas) =>
-    deltas.reduce((coords, [r, c]) => validCoordForGrid(row + r, col + c, grid) ? [...coords, [row + r, col + c]] : coords, [])
+	deltas.flatMap(([r, c]) => Array(+(validCoordForGrid(row + r, col + c, grid))).fill([row + r, col + c]));
 
 // get grid elements for a position and a list of offset coords
 const getSurroundingGridTiles = (grid, row, col, deltas) =>
