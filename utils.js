@@ -141,6 +141,9 @@ const arrayFrequency = elements => elements.reduce((acc, cur) => {
     return acc
 }, {})
 
+// Helper function for flowless code, numbers from 0 up to count
+const steps = count => [...(new Array(count)).keys()]
+
 //////////////////// MATH
 // Thanks, SO 47047682
 // lcm usage: [2, 3, 4].reduce(lcm)
@@ -272,5 +275,5 @@ const gridToString = grid => grid.map(l => l.join('')).join('\n')
 
 module.exports = { fourWayDeltas, eightWayDeltas, gridInit, gridClone, validCoordForGrid, getSurroundingGridCoords, getSurroundingGridTiles, getSurrounding, gridCells,
     transpose, manhattan, combineConditionally, permutator, arraySum, arrayProduct, arrayHasIndex, shuffledArray,
-    arrayFrequency, gcd, lcm, cramer2, pairs, range, Heap, levenstein, gridToString
+    arrayFrequency, gcd, lcm, cramer2, pairs, range, Heap, levenstein, gridToString, steps
 }
