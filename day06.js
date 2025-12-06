@@ -7,21 +7,21 @@ const part1 = input => {
         l = l.trim().replace(/ +/g, ' ').split(' ')
         return [l, l.map(Number)][+(l[0].match(/\d+/) != null)]
     })
-    const operations = input.pop()
+    const op = input.pop()
     return arraySum(transpose(input)
-        .map((vals, i) => [arrayProduct(vals), arraySum(vals)][+(operations[i] == '+')]))
+        .map((vals, i) => [arrayProduct(vals), arraySum(vals)][+(op[i] == '+')]))
 }
 
 const part2 = input => transpose(input.split('\n').map(l => [...l]))
     .map(l => l.map(c => [c, ' '][+(typeof c === 'undefined')]))
     .reverse()
-    .reduce(([total, block], line) => {
-        const op = line.pop()
-        const val = Number(line.join(''))
-        block = [[...block, val], block][+(val == 0)]
-        line = [0, arraySum(block), arrayProduct(block)][' +*'.indexOf(op)]
-        block = [[], block][+(op == ' ')]
-        return [total + line, block]
+    .reduce(([total, vals], l) => {
+        const op = l.pop()
+        const value = Number(l.join(''))
+        vals = [[...vals, value], vals][+(value == 0)]
+        l = [0, arraySum(vals), arrayProduct(vals)][' +*'.indexOf(op)]
+        vals = [[], vals][+(op == ' ')]
+        return [total + l, vals]
     }, [0, []])[0]
 
 module.exports = { part1, part2 }
