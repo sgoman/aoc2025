@@ -12,7 +12,7 @@ const part1 = input => {
         .map((vals, i) => [arrayProduct(vals), arraySum(vals)][+(operations[i] == '+')]))
 }
 
-const part2 = input => transpose(input.split('\n').map(l => l.split('')))
+const part2 = input => transpose(input.split('\n').map(l => [...l]))
     .map(l => l.map(c => [c, ' '][+(typeof c === 'undefined')]))
     .reverse()
     .reduce(([total, block], line) => {
