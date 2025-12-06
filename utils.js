@@ -30,10 +30,8 @@ const getSurrounding = (grid, row, col, deltas) =>
 const gridCells = grid => grid.reduce((cells, line, row) => [...cells, ...line.map((value, col) => { return {row, col, value} })], [])
 
 // "rotates" a two dimenstional array 90° clockwise
-const transpose = grid => grid.reduce((cols, row, r, arr) => {
-    if (r == 0) for(let c = 0; c < row.length; c++) cols.push(arr.map(l => l[c]))
-    return cols
-}, [])
+const transpose = grid => grid.reduce((cols, row, r, arr) => 
+    [ cols, row.map((_, c) => arr.map(l => l[c])) ][+(r == 0)] , [])
 
 // classic rough distance on grids
 const manhattan = (a, b) => Math.abs(b[0] - a[0]) + Math.abs(b[1] - a[1])

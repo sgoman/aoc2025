@@ -44,3 +44,4 @@ The challenges
 3. **[Day 3: Lobby](day03.js)** Construct the highest number of the digits provided in order. Bonus: [Solution for flowless challenge](day03developerconsole.js)
 4. **[Day 4: Printing Department](day04.js)** Cellular Automaton, grids are back in business! Bonus: [Solution for flowless challenge](day04developerconsole.js)
 5. **[Day 5: Cafeteria](day05.js)** Working with massive ranges. Bonus: [Solution for flowless challenge](day05developerconsole.js)
+6. **[Day 6: Trash Compactor](day06.js)** Cephalopod math problems, reading numbers and operations from a grid. Bonus: [Solution for flowless challenge](day06developerconsole.js)
