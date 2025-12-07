@@ -2,14 +2,12 @@
 
 const parseInput = input => input.split('\n').map(l => [...l])
 
-const memo = new Map()
-
-const solve = (grid, timelines, row, col) => {
+const solve = (grid, timelines, row, col, memo) => {
     const key = `${row},${col}`
     const val = memo.get(key)
         || (row == grid.length - 1) * (timelines + 1)
-        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col)
-        || solve(grid, timelines, row + 1, col - 1) + solve(grid, timelines, row + 1, col + 1)
+        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col, memo)
+        || solve(grid, timelines, row + 1, col - 1, memo) + solve(grid, timelines, row + 1, col + 1, memo)
     memo.set(key, val)
     return val
 }
@@ -34,6 +32,6 @@ const part1 = input => {
     return total
 }
 
-const part2 = input => solve(parseInput(input), 0, 1, input.search('S'))
+const part2 = input => solve(parseInput(input), 0, 1, input.search('S'), new Map())
 
 module.exports = { part1, part2 }

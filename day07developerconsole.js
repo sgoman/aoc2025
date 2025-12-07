@@ -5,14 +5,12 @@
 
 const steps = count => [...(new Array(count)).keys()]
 
-const memo = new Map()
-
-const solve = (grid, timelines, row, col) => {
+const solve = (grid, timelines, row, col, memo) => {
     const key = `${row},${col}`
     const val = memo.get(key)
         || (row == grid.length - 1) * (timelines + 1)
-        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col)
-        || solve(grid, timelines, row + 1, col - 1) + solve(grid, timelines, row + 1, col + 1)
+        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col, memo)
+        || solve(grid, timelines, row + 1, col - 1, memo) + solve(grid, timelines, row + 1, col + 1, memo)
     memo.set(key, val)
     return val
 }
@@ -29,7 +27,7 @@ const part1 = input => steps(input.length)
             return above * splitter + t
         }, total), 0)
 
-const part2 = input => solve(input, 0, 1, input[0].indexOf('S'))
+const part2 = input => solve(input, 0, 1, input[0].indexOf('S'), new Map())
 
 const input = document.body.innerText.trim().split('\n').map(l => [...l])
 
