@@ -1,14 +1,9 @@
 'use strict'
 
-const { arraySum, gridToString } = require('./utils.js')
-
-const parseInput = input => {
-    return input.split('\n').map(l => [...l])
-}
+const parseInput = input => input.split('\n').map(l => [...l])
 
 const memo = new Map()
 
-// solves sample just fine, but needs memoization for part 2
 const solve = (grid, timelines, row, col) => {
     const tile = grid[row][col]
     const key = `${row},${col}`
@@ -18,17 +13,6 @@ const solve = (grid, timelines, row, col) => {
     const val = solve(grid, timelines, row + 1, col - 1) + solve(grid, timelines, row + 1, col + 1)
     memo.set(key, val)
     return val
-}
-
-const solver = (input, isPart2) => {
-    const start = input.search('S')
-    input = parseInput(input)
-    const total = (new Array(input[0].length)).fll(0)
-    total[start] = 1
-    for (let row = 1; row < input.length; row++) {
-
-    }
-    return arraySum(total)
 }
 
 const part1 = input => {
@@ -48,11 +32,9 @@ const part1 = input => {
             }
         }
     }
-    // console.log(gridToString(input))
     return total
 }
 
 const part2 = input => solve(parseInput(input), 0, 1, input.search('S'))
-// const part2 = input => solver(input, 1)
 
 module.exports = { part1, part2 }
