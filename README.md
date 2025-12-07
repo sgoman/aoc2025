@@ -45,3 +45,4 @@ The challenges
 4. **[Day 4: Printing Department](day04.js)** Cellular Automaton, grids are back in business! Bonus: [Solution for flowless challenge](day04developerconsole.js)
 5. **[Day 5: Cafeteria](day05.js)** Working with massive ranges. Bonus: [Solution for flowless challenge](day05developerconsole.js)
 6. **[Day 6: Trash Compactor](day06.js)** Cephalopod math problems, reading numbers and operations from a grid. Bonus: [Solution for flowless challenge](day06developerconsole.js)
+7. **[Day 7: Laboratories](day07.js)** Counting beam splits or deflections.

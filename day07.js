@@ -5,12 +5,11 @@ const parseInput = input => input.split('\n').map(l => [...l])
 const memo = new Map()
 
 const solve = (grid, timelines, row, col) => {
-    const tile = grid[row][col]
     const key = `${row},${col}`
-    if (memo.has(key)) return memo.get(key)
-    if (row == grid.length - 1) return timelines + 1
-    if (tile == '.') return solve(grid, timelines, row + 1, col)
-    const val = solve(grid, timelines, row + 1, col - 1) + solve(grid, timelines, row + 1, col + 1)
+    const val = memo.get(key)
+        || (row == grid.length - 1) * (timelines + 1)
+        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col)
+        || solve(grid, timelines, row + 1, col - 1) + solve(grid, timelines, row + 1, col + 1)
     memo.set(key, val)
     return val
 }
