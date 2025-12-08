@@ -84,7 +84,6 @@ const solve = (isPart2, input) => {
 		const dist = Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2])
 		heap.insert([dist, p, q])
 	}
-	// console.log(heap.size())
     const targetSize = heap.size() - (input.length == 1000 ? 1000 : 10)
 
     // use the heap to implement Kruskal's algorithm
@@ -100,7 +99,7 @@ const solve = (isPart2, input) => {
         if (rootX !== rootY) parent.set(rootX, rootY)
     }
 
-    let lastDist = 0, edgesUsed = 0, clusters = new Map(), dist, j1, j2, clusterSizes
+    let clusters = new Map(), dist, j1, j2, clusterSizes
     while (!heap.isEmpty()
             && (isPart2 ? (clusters.size != 1 && clusters.values().length != input.length) : heap.size() > targetSize)
         ) {
@@ -108,13 +107,7 @@ const solve = (isPart2, input) => {
         j1 = p[0]
         j2 = q[0]
 
-        //console.log({j1, j2})
-
-        if (find(p) !== find(q)) {
-            union(p, q)
-            edgesUsed++
-            lastDist = dist
-        }
+        if (find(p) !== find(q)) union(p, q)
 
         clusters = new Map()
         for (const point of input) {
@@ -123,13 +116,8 @@ const solve = (isPart2, input) => {
             clusters.get(root).push(point)
         }
 
-        // console.log(clusters.size)
-
-        // get the sizes of the largest three clusters
         clusterSizes = Array.from(clusters.values()).map(c => c.length).sort((a, b) => b - a).slice(0, 3)
     }
-
-    // console.log(clusters)
 
     return isPart2 ? (j1 * j2) : clusterSizes.reduce((a, b) => a * b, 1)
 }
