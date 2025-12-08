@@ -3,34 +3,25 @@
 // Just paste this code into the developer console on https://adventofcode.com/2025/day/7/input (try F12 or CTRL+I in your browser)
 // The two numbers are the results for the first and second part for your personal input
 
-const steps = count => [...(new Array(count)).keys()]
-
-const solve = (grid, timelines, row, col, memo) => {
-    const key = `${row},${col}`
-    const val = memo.get(key)
-        || (row == grid.length - 1) * (timelines + 1)
-        || (grid[row][col] == '.') * solve(grid, timelines, row + 1, col, memo)
-        || solve(grid, timelines, row + 1, col - 1, memo) + solve(grid, timelines, row + 1, col + 1, memo)
-    memo.set(key, val)
-    return val
-}
-
-const part1 = input => steps(input.length)
-    .slice(1)
-    .reduce((total, row) => steps(input[row].length)
-        .reduce((t, col) => {
-            const above = +('S|'.includes(input[row - 1][col]))
-            const splitter = +(input[row][col] == '^')
-            input[row][col] = [input[row][col], '|'][above * !splitter]
-            input[row][col - 1] = [input[row][col - 1], '|'][above * splitter]
-            input[row][col + 1] = [input[row][col + 1], '|'][above * splitter]
-            return above * splitter + t
-        }, total), 0)
-
-const part2 = input => solve(input, 0, 1, input[0].indexOf('S'), new Map())
-
 const input = document.body.innerText.trim().split('\n').map(l => [...l])
 
+const solver = grid => {
+    let splits = Array(grid[0].length).fill(0)
+    splits[grid[0].indexOf('S')] = 1
+    const res = grid
+        .reduce((data, row) => row
+            .reduce(([p1, sp], t, col) => {
+                const activeSplitter = +(t == '^' && sp[col] > 0)
+                const _ = [col - 1, col + 1]
+                    .filter(f => f >= 0 && f < row.length)
+                    .reduce((q, r) => sp[r] += [0, sp[col]][activeSplitter], 0)
+                sp[col] = [sp[col], 0][activeSplitter]
+                return [p1 + activeSplitter, sp]
+            }, data)
+        , [0, splits])
+    return [res[0], res[1].reduce((a, c) => a + c, 0)]
+}
+
 console.time('Advent of Code day 7 flowless challenge both parts')
-console.log([part1(input.map(r => r.map(c => c))), part2(input)])
+console.log(solver(input))
 console.timeEnd('Advent of Code day 7 flowless challenge both parts')
