@@ -85,7 +85,7 @@ const solve = (isPart2, input) => {
 		heap.insert([dist, p, q])
 	}
 	// console.log(heap.size())
-    const targetSize = heap.size() - input.length
+    const targetSize = heap.size() - (input.length == 1000 ? 1000 : 10)
 
     // use the heap to implement Kruskal's algorithm
     const parent = new Map()

@@ -46,3 +46,4 @@ The challenges
 5. **[Day 5: Cafeteria](day05.js)** Working with massive ranges. Bonus: [Solution for flowless challenge](day05developerconsole.js)
 6. **[Day 6: Trash Compactor](day06.js)** Cephalopod math problems, reading numbers and operations from a grid. Bonus: [Solution for flowless challenge](day06developerconsole.js)
 7. **[Day 7: Laboratories](day07.js)** Counting beam splits or deflections. Bonus: [Solution for flowless challenge](day07developerconsole.js)
+8. **[Day 8: Playground](day08.js)** Implementing the euclidian distance spanning tree graph, in this case Kruskal's algorithm.
