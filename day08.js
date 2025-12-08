@@ -84,8 +84,8 @@ const solve = (isPart2, input) => {
 		const dist = Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2])
 		heap.insert([dist, p, q])
 	}
-	console.log(heap.size())
-    const targetSize = heap.size() - 1000
+	// console.log(heap.size())
+    const targetSize = heap.size() - input.length
 
     // use the heap to implement Kruskal's algorithm
     const parent = new Map()
@@ -100,42 +100,42 @@ const solve = (isPart2, input) => {
         if (rootX !== rootY) parent.set(rootX, rootY)
     }
 
-    let edgesUsed = 0
-    let lastDist = 0
+    let lastDist = 0, edgesUsed = 0, clusters = new Map(), dist, j1, j2, clusterSizes
     while (!heap.isEmpty()
-         // && (edgesUsed < 999)
-            && heap.size() > targetSize
+            && (isPart2 ? (clusters.size != 1 && clusters.values().length != input.length) : heap.size() > targetSize)
         ) {
         const [dist, p, q] = heap.extract()
+        j1 = p[0]
+        j2 = q[0]
+
+        //console.log({j1, j2})
+
         if (find(p) !== find(q)) {
             union(p, q)
             edgesUsed++
             lastDist = dist
         }
+
+        clusters = new Map()
+        for (const point of input) {
+            const root = find(point)
+            if (!clusters.has(root)) clusters.set(root, [])
+            clusters.get(root).push(point)
+        }
+
+        // console.log(clusters.size)
+
+        // get the sizes of the largest three clusters
+        clusterSizes = Array.from(clusters.values()).map(c => c.length).sort((a, b) => b - a).slice(0, 3)
     }
 
-    // extract the clusters of points from the parent map
-    const clusters = new Map()
-    for (const point of input) {
-        const root = find(point)
-        if (!clusters.has(root)) clusters.set(root, [])
-        clusters.get(root).push(point)
-    }
+    // console.log(clusters)
 
-    console.log(clusters)
-
-    // get the sizes of the largest three clusters
-    const clusterSizes = Array.from(clusters.values()).map(c => c.length).sort((a, b) => b - a).slice(0, 3)
-
-    return clusterSizes.reduce((a, b) => a * b, 1)
+    return isPart2 ? (j1 * j2) : clusterSizes.reduce((a, b) => a * b, 1)
 }
 
-const part1 = input => {
-    return solve(false, parseInput(input))
-}
+const part1 = input => solve(false, parseInput(input))
 
-const part2 = input => {
-    return solve(true, parseInput(input))
-}
+const part2 = input => solve(true, parseInput(input))
 
 module.exports = { part1, part2 }
