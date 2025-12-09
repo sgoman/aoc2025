@@ -14,17 +14,17 @@ const getEdges = (reds) => range(0, reds.length)
 		const vert = (ay == by) * 1
 		const m = Math.max(ay, by)
 
-		// This function is horrendously slow due to the deep cloning of edges.
-		// Took nearly 2 hours to run part 2 on my input.
+		// This function is horrendously slow due to the cloning of edges.
+		// Takes about half a minute on my machine.
 		// Uncomment next line for debug info / progress
 		// console.log({i, l: reds.length, e: Object.keys(edges).length})
 		
 		edges = range(Math.min(ay, by), m + 1)
 			.reduce((e, y) => {
-				const ne = JSON.parse(JSON.stringify(e))
-				const prev = (ne[y] || [ax, ax]);
-				ne[y] = [Math.min(prev[0], ax), Math.max(prev[1], ax)];
-				return [e, ne][horiz]
+				const tmp = JSON.parse(JSON.stringify(e[y] || [ax, ax]))
+				const tmp2 = [Math.min(tmp[0], ax), Math.max(tmp[1], ax)]
+				e[y] = [e[y], tmp2][horiz]
+				return e
 			}, edges)
 
 		const ne = JSON.parse(JSON.stringify(edges))
