@@ -60,17 +60,13 @@ const maxArea = (reds, edges) => {
 	return best
 }
 
-const part1 = input => {
-	input = pairs(parseInput(input))
-		.map(area)
-		.sort((a, b) => b - a)
-	return input[0]
-}
+const part1 = input => pairs(parseInput(input))
+    .map(area)
+    .sort((a, b) => b - a)[0]
 
 const part2 = input => {
 	input = parseInput(input)
-	const edges = getEdges(input)
-	return maxArea(input, edges)
+	return maxArea(input, getEdges(input))
 }
 
 module.exports = { part1, part2 }
