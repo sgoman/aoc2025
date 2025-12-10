@@ -48,3 +48,4 @@ The challenges
 7. **[Day 7: Laboratories](day07.js)** Counting beam splits or deflections. Bonus: [Solution for flowless challenge](day07developerconsole.js)
 8. **[Day 8: Playground](day08.js)** Implementing the euclidian distance spanning tree graph, in this case Kruskal's algorithm.
 9. **[Day 9: Movie Theater](day09.js)** Biggest rectangles with red corners. Only allowed over inner green tiles for part 2. Bonus: [Solution for flowless challenge](day09developerconsole.js)
+9. **[Day 10: Factory](day10.js)** Pressing buttons on machines to turn on LEDs or meeting joltage requirements.
