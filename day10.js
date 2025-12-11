@@ -2,6 +2,8 @@
 
 const { init } = require('z3-solver')
 
+const alpha = 'abcdefghijklmnopqrstuvwxyz'
+
 const parseInput = input => input.trim().split('\n').reduce((machines, line) => {
 	const [left, rest] = line.split(']')
 	const leds = left.replace('[', '').replace(/\./g, '0').replace(/#/g, '1')
@@ -33,34 +35,6 @@ const bfs = ({goal, buttons}) => {
 	return 0
 }
 
-const bfs2 = ({schematics, jolts}) => {
-	const goal = jolts.join(',')
-	const changes = schematics.reduce((schems, button) => [...schems, button.reduce((counter, b) => {counter[b]++; return counter}, (new Array(jolts.length).fill(0)))], [])
-	const states = new Map()
-	const queue = [(new Array(jolts.length)).fill(0)]
-	states.set(queue[0].join(','), 0)
-	while (queue.length) {
-		const q = queue.shift()
-		const qs = q.join(',')
-		const qstate = states.get(qs)
-		if (qs == goal) return qstate
-
-		changes
-			.filter(f => f.map((c, i) => q[i] + c).every((c, i) => c <= jolts[i]))
-			.forEach(f => {
-				const c = f.map((t, i) => q[i] + t)
-				queue.push(c)
-				states.set(c.join(','), qstate + 1)
-			})
-		console.log({qstate, qs, l: queue.length})
-		// if (qstate > 1) break
-	}
-	console.error(`${goal} is unreachable!`)
-	return 0
-}
-
-const alpha = 'abcdefghijklmnopqrstuvwxyz'
-
 const joltage = async (input) => {
 	let counts = 0
 
@@ -83,9 +57,7 @@ const joltage = async (input) => {
 		for (let i = 0; i < jolts.length; i++) {
 			let condition = Int.val(0)
 			for (const [y, btn] of changes.entries()) {
-				// console.log({jolts, i, y, btn})
 				if (btn[i] === 1) {
-					console.log('adding button', i)
 					condition = condition.add(vars[y])
 				}
 			}
@@ -95,17 +67,12 @@ const joltage = async (input) => {
 
 		const sumvars = vars.reduce((acc, cur) => acc.add(cur), Int.val(0))
 
-		console.log(solver.toString());
-
 		solver.minimize(sumvars)
 
-		// query the model with the current values
 		const res = await solver.check()
-		console.log({res})
 		if (res === 'sat') {
 			const result = +solver.model().eval(sumvars).toString()
 			counts += result
-			console.log({jolts, result, counts})
 		}
 	}
 	return counts
