@@ -1,4 +1,8 @@
-'use strict'
+// My solution for day 12 to this challenge: https://www.reddit.com/r/adventofcode/comments/1p2ral9/flowless_challenge_2025/
+// Purely functional and branchless programming
+// Just paste this code into the developer console on https://adventofcode.com/2025/day/12/input (try F12 or CTRL+I in your browser)
+// The number is the solution to the first part of the challenge.
+// There is no second part to this days challenge, just have 23 stars total
 
 const parseInput = input => input
     .trim()
@@ -20,6 +24,6 @@ const part1 = input => {
     }, 0)
 }
 
-const part2 = input => 'Check your stars, 23 needed!'
-
-module.exports = { part1, part2 }
+console.time('Advent of Code Day 12 both parts flowless')
+console.log(part1(document.body.innerText.trim()))
+console.timeEnd('Advent of Code Day 12 both parts flowless')

@@ -49,4 +49,4 @@ The challenges
 8. **[Day 8: Playground](day08.js)** Implementing the euclidian distance spanning tree graph, in this case Kruskal's algorithm.
 9. **[Day 9: Movie Theater](day09.js)** Biggest rectangles with red corners. Only allowed over inner green tiles for part 2. Bonus: [Solution for flowless challenge](day09developerconsole.js)
 10. **[Day 10: Factory](day10.js)** Pressing buttons on machines to turn on LEDs or meeting joltage requirements.
-11. **[Day 11: Reactor](day11.js)** Walking graphs again
+12. **[Day 12: Christmas Tree Farm](day12.js)** Will the presents fit the space under the tree? Cheating... Bonus: [Solution for flowless challenge](day12developerconsole.js)
